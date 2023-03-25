@@ -43,10 +43,10 @@ void Camera::UpdateCameraLookAtMatrix()
 	// 	transform any vector to that coordinate space by multiplying it with this matrix
 
 	// LookAt =
-	// 	Rx Ry Rz 0				1 0 0 −Px
-	// 	Ux Uy Uz 0		X		0 1 0 −Py
-	// 	Dx Dy Dz 0				0 0 1 −Pz
-	// 	0  0  0  1				0 0 0  1
+	// 	Rx		Ux		-Dx		0
+	// 	Ry		Uy		-Dy		0
+	// 	Rz		Uz		-Dz		0
+	// 	-R.P  -U.P		-D.P	1
 
 	// R represents the cameraRight vector
 	// U represents the cameraUp vector

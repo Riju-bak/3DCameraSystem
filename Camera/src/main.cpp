@@ -64,74 +64,15 @@ void processInput(GLFWwindow* window)
 	}
 }
 
-void LoadVertexDataIntoGPUMemory(VAO& vao)
+void LoadVertexDataIntoGPUMemory(VAO& vao, float vertices[], int verticesSize, unsigned int indices[], int indicesSize)
 {
-	// float vertices[] = {
-// 	//vertex			//color			    //texture coords
-// 	-0.5f, -0.5f, 0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,		//bottom left
-// 	-0.5f, 0.5f, 0.0f,	0.0f, 1.0f, 0.0f,	0.0f, 1.0f,   //top left
-// 	0.5f, 0.5f, 0.0f,	0.0f, 0.0f, 1.0f,	1.0f, 1.0f,  //top right
-// 	0.5f, -0.5f, 0.0f,	0.5f, 0.5f, 0.2f,	1.0f, 0.0f,   //bottom right
-// };
-
-
-	float vertices[] = {
-		-0.5f,	-0.5f,	-0.5f,		0.0f,	0.0f,
-		0.5f,	-0.5f,	-0.5f,		1.0f,	0.0f,
-		0.5f,	0.5f,	-0.5f,		1.0f,	1.0f,
-		0.5f,	0.5f,	-0.5f,		1.0f,	1.0f,
-		-0.5f,	0.5f,	-0.5f,		0.0f,	1.0f,
-		-0.5f,	-0.5f,	-0.5f,		0.0f,	0.0f,
-
-		-0.5f,	-0.5f,	0.5f,		0.0f,	0.0f,
-		0.5f,	-0.5f,	0.5f,		1.0f,	0.0f,
-		0.5f,	0.5f,	0.5f,		1.0f,	1.0f,
-		0.5f,	0.5f,	0.5f,		1.0f,	1.0f,
-		-0.5f,	0.5f,	0.5f,		0.0f,	1.0f,
-		-0.5f,	-0.5f,	0.5f,		0.0f,	0.0f,
-
-		-0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
-		-0.5f,	0.5f,	-0.5f,		1.0f,	1.0f,
-		-0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
-		-0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
-		-0.5f,	-0.5f,	0.5f,		0.0f,	0.0f,
-		-0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
-
-		0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
-		0.5f,	0.5f,	-0.5f,		1.0f,	1.0f,
-		0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
-		0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
-		0.5f,	-0.5f,	0.5f,		0.0f,	0.0f,
-		0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
-
-		-0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
-		0.5f,	-0.5f,	-0.5f,		1.0f,	1.0f,
-		0.5f,	-0.5f,	0.5f,		1.0f,	0.0f,
-		0.5f,	-0.5f,	0.5f,		1.0f,	0.0f,
-		-0.5f,	-0.5f,	0.5f,		0.0f,	0.0f,
-		-0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
-
-		-0.5f,	0.5f,	-0.5f,		0.0f,	1.0f,
-		0.5f,	0.5f,	-0.5f,		1.0f,	1.0f,
-		0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
-		0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
-		-0.5f,	0.5f,	0.5f,		0.0f,	0.0f,
-		-0.5f,	0.5f,	-0.5f,		0.0f,	1.0f
-	};
-
-
-	unsigned int indices[] = {
-		0, 1, 2,
-		0, 2, 3,
-	};
-
 	vao.Bind();
 
 	//Generate and bind the VBO
-	VBO vbo = VBO(vertices, sizeof(vertices));
+	VBO vbo = VBO(vertices, verticesSize);
 
 	//Generate and bind the EBO
-	// EBO ebo = EBO(indices, sizeof(indices));
+	// EBO ebo = EBO(indices, indicesSize);
 
 	int stride = 5 * sizeof(float);
 
@@ -216,10 +157,67 @@ void Run(GLFWwindow* window)
 		glm::vec3(-1.3f, 1.0f, -1.5f)
 	};
 
+	// float vertices[] = {
+// 	//vertex			//color			    //texture coords
+// 	-0.5f, -0.5f, 0.0f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,		//bottom left
+// 	-0.5f, 0.5f, 0.0f,	0.0f, 1.0f, 0.0f,	0.0f, 1.0f,   //top left
+// 	0.5f, 0.5f, 0.0f,	0.0f, 0.0f, 1.0f,	1.0f, 1.0f,  //top right
+// 	0.5f, -0.5f, 0.0f,	0.5f, 0.5f, 0.2f,	1.0f, 0.0f,   //bottom right
+// };
 
+
+	float vertices[] = {
+		-0.5f,	-0.5f,	-0.5f,		0.0f,	0.0f,
+		0.5f,	-0.5f,	-0.5f,		1.0f,	0.0f,
+		0.5f,	0.5f,	-0.5f,		1.0f,	1.0f,
+		0.5f,	0.5f,	-0.5f,		1.0f,	1.0f,
+		-0.5f,	0.5f,	-0.5f,		0.0f,	1.0f,
+		-0.5f,	-0.5f,	-0.5f,		0.0f,	0.0f,
+
+		-0.5f,	-0.5f,	0.5f,		0.0f,	0.0f,
+		0.5f,	-0.5f,	0.5f,		1.0f,	0.0f,
+		0.5f,	0.5f,	0.5f,		1.0f,	1.0f,
+		0.5f,	0.5f,	0.5f,		1.0f,	1.0f,
+		-0.5f,	0.5f,	0.5f,		0.0f,	1.0f,
+		-0.5f,	-0.5f,	0.5f,		0.0f,	0.0f,
+
+		-0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
+		-0.5f,	0.5f,	-0.5f,		1.0f,	1.0f,
+		-0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
+		-0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
+		-0.5f,	-0.5f,	0.5f,		0.0f,	0.0f,
+		-0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
+
+		0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
+		0.5f,	0.5f,	-0.5f,		1.0f,	1.0f,
+		0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
+		0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
+		0.5f,	-0.5f,	0.5f,		0.0f,	0.0f,
+		0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
+
+		-0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
+		0.5f,	-0.5f,	-0.5f,		1.0f,	1.0f,
+		0.5f,	-0.5f,	0.5f,		1.0f,	0.0f,
+		0.5f,	-0.5f,	0.5f,		1.0f,	0.0f,
+		-0.5f,	-0.5f,	0.5f,		0.0f,	0.0f,
+		-0.5f,	-0.5f,	-0.5f,		0.0f,	1.0f,
+
+		-0.5f,	0.5f,	-0.5f,		0.0f,	1.0f,
+		0.5f,	0.5f,	-0.5f,		1.0f,	1.0f,
+		0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
+		0.5f,	0.5f,	0.5f,		1.0f,	0.0f,
+		-0.5f,	0.5f,	0.5f,		0.0f,	0.0f,
+		-0.5f,	0.5f,	-0.5f,		0.0f,	1.0f
+	};
+
+
+	unsigned int indices[] = {
+		0, 1, 2,
+		0, 2, 3,
+	};
 
 	VAO vao;
-	LoadVertexDataIntoGPUMemory(vao);
+	LoadVertexDataIntoGPUMemory(vao, vertices, sizeof(vertices), indices, sizeof(indices));
 	Texture2D texture2d = Texture2D("resources/textures/container.jpg");
 	// Texture2D awesomefaceTexture = Texture2D("resources/textures/awesomeface.png");
 	// unsigned int awesomeFaceTextureId = SetupAwesomeFace();
